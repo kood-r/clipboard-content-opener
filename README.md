@@ -1,0 +1,2 @@
+# Clipboard Content Opener
+クリップボードの内容がURLの場合はそのページを開き、URL以外の文字列の場合は検索を行い、画像の場合は画像検索を行うChromeの拡張機能。
