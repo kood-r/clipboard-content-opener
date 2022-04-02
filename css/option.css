@@ -1,0 +1,87 @@
+body {
+    font-family: 'メイリオ', Meiryo, Arial, sans-serif;
+    background-color: #DDDDDD;
+    font-size: 14px;
+    margin: 0 auto;
+    width: 700px;
+    visibility: hidden;
+}
+
+#title {
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #000000;
+    margin-top: 30px;
+}
+
+.wrapper {
+    padding: 20px 0;
+    border-bottom: dashed 1px #555555;
+}
+
+.wrapper>span.desc {
+    display: block;
+    margin-left: 25px;
+}
+
+.wrapper>ul {
+    margin-left: -15px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.wrapper .inner input[type=checkbox] {
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.wrapper .inner label {
+    display: inline-block;
+    padding-left: 2px;
+}
+
+.wrapper .inner ul {
+    margin: 5px 0px;
+}
+
+.wrapper .inner span.desc {
+    display: block;
+    margin-left: 43px;
+}
+
+.wrapper .inner ul input[type="checkbox"] {
+    margin-left: 0;
+}
+
+.wrapper .inner textarea#schemes {
+    height: 17px;
+    width: 450px;
+    margin-left: 43px;
+}
+
+.wrapper .inner input[type="text"] {
+    width: 450px;
+}
+
+.wrapper .inner>input[type="text"] {
+    margin-left: 43px;
+}
+
+#waiting-time {
+    margin: 0 1px;
+    width: 40px;
+}
+
+.button-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: dashed 1px #555555;
+}
+
+footer {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 30px;
+}

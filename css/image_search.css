@@ -1,0 +1,74 @@
+body {
+    font-family: 'メイリオ', Meiryo, Arial, sans-serif;
+    background-color: #DDDDDD;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+#title {
+    text-align: center;
+    font-size: 30px;
+    width: 800px;
+    margin: 0 auto;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #000000;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#content {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#content span {
+    display: block;
+}
+
+canvas {
+    margin-top: 30px;
+}
+
+#target:focus {
+    outline: none;
+}
+
+#target img {
+    max-width: 600px;
+    display: block;
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+#th-image {
+    width: 100px;
+}
+
+#th-url-mes {
+    width: 700px;
+}
+
+tr {
+    border: 1px solid #000;
+}
+
+th {
+    border: 1px solid #000;
+    background-color: #CCCCCC;
+}
+
+td {
+    border: 1px solid #000;
+    vertical-align: middle;
+    font-size: 16px;
+    overflow-wrap: break-word;
+}
+
+td canvas {
+    margin-top: 10px;
+}

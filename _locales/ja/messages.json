@@ -1,0 +1,164 @@
+{
+    "extensionName": {
+        "message": "Clipboard Content Opener"
+    },
+    "extensionDesc": {
+        "message": "クリップボードの内容がURLの場合はそのページを開き、URL以外の文字列の場合は検索を行い、画像の場合は画像検索を行う拡張機能です。"
+    },
+    "optionSave": {
+        "message": "設定を保存"
+    },
+    "optionReset": {
+        "message": "設定をリセット"
+    },
+    "optionClipboardIsUrl": {
+        "message": "クリップボードの内容がURLの場合はページを開く"
+    },
+    "howToOpenaPage": {
+        "message": "ページの開き方"
+    },
+    "currentTab": {
+        "message": "現在のタブ"
+    },
+    "newForegroundTab": {
+        "message": "新しいフォアグラウンドタブ"
+    },
+    "newBackgroundTab": {
+        "message": "新しいバックグラウンドタブ"
+    },
+    "optionUrlWithoutH": {
+        "message": "h抜き(ttp/ttps)のURLを認識する"
+    },
+    "optionExtensionScheme": {
+        "message": "\"chrome-extension://\"、\"extension://\" から始まる文字列をURLとして扱う"
+    },
+    "optionFileScheme": {
+        "message": "\"file:///\" から始まる文字列をURLとして扱う"
+    },
+    "optionAnyScheme": {
+        "message": "次のスキームから始まる文字列をURLとして扱う(カンマ区切りで設定)"
+    },
+    "optionAnySchemeDesc": {
+        "message": "\"<スキーム>://\"、\"<スキーム>:\" に対応しています。"
+    },
+    "optionImgUrlSearch": {
+        "message": "画像のURL(URL末尾が.png/.jpg/.jpeg/.gif/.webp)の場合はURLで画像検索を行う"
+    },
+    "optionImgUrlSearchDesc": {
+        "message": "画像検索エンジンは[クリップボードの内容が画像の場合]の設定を使用します。\\nアップロードエラーが発生した場合等は画像のURLを開きます。"
+    },
+    "optionAddRegexes": {
+        "message": "URLの抽出に使用する正規表現に以下を含める"
+    },
+    "optionRegexRoughRange": {
+        "message": "U+2E80～U+2FDF、U+3001～U+9FFF、U+F900～U+FAFF、\\nU+FF01～FFEF、U+20000～U+2FFFF\\n(日本語、漢字がエンコードされていないURLがある場合に有効にしてください。)"
+    },
+    "optionUserRegex": {
+        "message": "URLの抽出に以下の正規表現を使用する"
+    },
+    "optionUserRegexDesc": {
+        "message": "(スキーム部分の正規表現を付加し、()で囲んだ物が使用されます。)"
+    },
+    "optionClipboardIsStr": {
+        "message": "クリップボードの内容が文字列の場合は検索を行う"
+    },
+    "optionSearchEngine": {
+        "message": "検索エンジン (%s=検索語句)"
+    },
+    "optionSearchEngineDesc": {
+        "message": "空欄或いは%sが無い場合はGoogle検索を行います。"
+    },
+    "optionUrlAsKeyword_ctrl": {
+        "message": "Ctrl / command キーを押しながら実行でURLの抽出をせず検索を行えるようにする"
+    },
+    "optionParseLineByLine_shift": {
+        "message": "Shift キーを押しながら実行かつ検索を行う場合に、一行一検索語句として処理する"
+    },
+    "optionExactMatch_z": {
+        "message": "Z キーを押しながら実行かつ検索を行う場合に、完全一致検索を行う(先頭と末尾に \" を付加)"
+    },
+    "optionClipboardIsImage": {
+        "message": "クリップボードの内容が画像の場合は画像検索を行う"
+    },
+    "optionImageSearchEngine": {
+        "message": "画像検索エンジン"
+    },
+    "optionGoogleImageSearch": {
+        "message": "Google画像検索"
+    },
+    "optionAscii2dImageSearch": {
+        "message": "二次元画像詳細検索"
+    },
+    "optionTinEyeImageSearch": {
+        "message": "TinEye"
+    },
+    "optionYandexImageSearch": {
+        "message": "Yandex"
+    },
+    "optionImageConvertForYandex":{
+        "message": "YandexにPNGをアップロードする場合にPNGへの再変換を行う"
+    },
+    "optionImageConvertForYandexDesc":{
+        "message": "Yandexと相性の悪いPNGが存在するため、その対処のための処理です。"
+    },
+    "optionCurrentTabIsNewTab": {
+        "message": "現在のタブが新しいタブの場合に現在のタブでページを開く"
+    },
+    "optionOpenFirstPageForeground": {
+        "message": "新しいフォアグラウンドタブ設定かつ複数のURLを抽出した場合に、最初に開くタブをアクティブにする"
+    },
+    "optionOpenFirstPageForegroundDesc": {
+        "message": "無効の場合は最後に開くタブがアクティブになります。"
+    },
+    "optionParseLineByLine_shiftAlt": {
+        "message": "Shift + Alt / Shift + option キーを押しながら実行で文字列を一行毎に解析する"
+    },
+    "optionParseLineByLine_shiftAltDesc": {
+        "message": "一行毎に「URL抽出、URLが存在しない場合に検索URL作成」を実行したい場合に行ってください。\\nこれを行った場合、ページの開き方は \"新しいフォアグラウンドタブ\" になります。"
+    },
+    "optionWaitingTime": {
+        "message": "クリップボードの内容の取得までの待機時間"
+    },
+    "optionMillisecond": {
+        "message": "ミリ秒"
+    },
+    "optionWaitingTimeDesc": {
+        "message": "キーボードの判定がうまくいかない場合は待機時間を長くしてみてください。"
+    },
+    "pleaseWait": {
+        "message": "しばらくお待ち下さい。"
+    },
+    "uploadingImgToGoogle": {
+        "message": "クリップボードの画像をGoogle画像検索にアップロード中です。"
+    },
+    "errorOnUploadToGoogle": {
+        "message": "Google画像検索へのアップロードでエラーが発生しました。"
+    },
+    "uploadingImgToAscii2d": {
+        "message": "クリップボードの画像を二次元画像詳細検索にアップロード中です。"
+    },
+    "errorOnUploadToAscii2d": {
+        "message": "二次元画像詳細検索へのアップロードでエラーが発生しました。"
+    },
+    "uploadingImgToTinEye": {
+        "message": "クリップボードの画像をTinEyeにアップロード中です。"
+    },
+    "errorOnUploadToTinEye": {
+        "message": "TinEyeへのアップロードでエラーが発生しました。"
+    },
+    "uploadingImgToYandex": {
+        "message": "クリップボードの画像をYandexにアップロード中です。"
+    },
+    "errorOnUploadToYandex": {
+        "message": "Yandexへのアップロードでエラーが発生しました。"
+    },
+    "notice_Yandex1": {
+        "message": "この画像はYandexとの相性が悪い可能性があります。"
+    },
+    "notice_Yandex2": {
+        "message": "下の画像を[右クリック→画像をコピー]後、ページをリロードしてみてください。\\nアップロードに成功する可能性があります。"
+    },
+    "openBackgroundTab_afterImgSearchFinished":{
+        "message": "エラーが発生した画像が存在します。\\nエラーが発生していないものをバックグラウンドタブで開きます。"
+    }
+}
