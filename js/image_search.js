@@ -176,6 +176,8 @@ async function uploadImage(imageFile) {
         case "google":
             serviceUrl = "https://www.google.com/searchbyimage/upload";
             body.append("encoded_image", imageFile, fileName);
+            body.append('image_url', '');
+            body.append('sbisrc', "clipboard_content_opener");
             await axios.post(serviceUrl, body).then(response => {
                 obj["url"] = response.request.responseURL;
             }).catch(e => {
