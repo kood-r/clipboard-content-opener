@@ -316,7 +316,7 @@ async function getImgSearchUrlUsingImgUrl(url) {
     body.contentType = false;
     switch (option.imgSearchService) {
         case "google":
-            searchUrl = "https:www.google.com/searchbyimage?sbisrc=clipboard_content_opener&image_url=";
+            searchUrl = "https://www.google.com/searchbyimage?sbisrc=clipboard_content_opener&image_url=";
             searchUrl += encodeURIComponent(url);
             break;
         case "ascii2d":
