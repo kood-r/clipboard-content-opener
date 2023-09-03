@@ -24,10 +24,10 @@ document.body.addEventListener("keydown", function (e) {
     if (e.shiftKey && e.altKey) {
         shiftKeyAndAltKey = true;
     }
-})
+});
 
 window.onload = function () {
-    chrome.storage.local.get({ "option": getDefautOption() }, function (obj) {
+    chrome.storage.local.get({ option: getDefautOption() }, function (obj) {
         option = obj.option;
         console.log(option);
         var element = document.getElementById("target");
@@ -38,7 +38,7 @@ window.onload = function () {
             document.execCommand("paste");
         }, option.waitingTime);
     });
-}
+};
 
 // ペースト時、画像/文字列を取得
 function paste(e) {
@@ -52,7 +52,7 @@ function paste(e) {
             imageFile = items[i].getAsFile();
             break;
         } else if (item.type.indexOf("text/") > -1) {
-            pasteTexts.push(item)
+            pasteTexts.push(item);
         }
     }
     if (imageFile != undefined) {
@@ -62,17 +62,19 @@ function paste(e) {
             window.close();
         }
     } else if (pasteTexts.length > 0) {
-        const plainText = pasteTexts.find(text => text.type == "text/plain");
-        const otherText = pasteTexts.find(text => text.type.indexOf("text/") > -1);
+        const plainText = pasteTexts.find((text) => text.type == "text/plain");
+        const otherText = pasteTexts.find(
+            (text) => text.type.indexOf("text/") > -1
+        );
         if (plainText != undefined) {
             plainText.getAsString(function (value) {
                 parseStr(value);
-            })
+            });
         } else if (otherText != undefined) {
             try {
                 otherText.getAsString(function (value) {
                     parseStr(value);
-                })
+                });
             } catch (e) {
                 window.close();
             }
@@ -89,7 +91,8 @@ function paste(e) {
             ary.push("Image");
         }
         if (ary.length > 0) {
-            const notice = ary.join("/") + " not found from your clipboard data.";
+            const notice =
+                ary.join("/") + " not found from your clipboard data.";
             document.body.innerHTML = "<span>" + notice + "</span>";
         }
     }
@@ -203,8 +206,13 @@ function extractURL(str) {
                 */
                 for (const url of anySchemeUrls) {
                     const regexStr = "^" + scheme + "(:|://)";
-                    const strAfterScheme = url.replace(new RegExp(regexStr), "");
-                    const urlCount = urls.filter(url => url == strAfterScheme).length
+                    const strAfterScheme = url.replace(
+                        new RegExp(regexStr),
+                        ""
+                    );
+                    const urlCount = urls.filter(
+                        (url) => url == strAfterScheme
+                    ).length;
                     if (urlCount > 0) {
                         urls.splice(urls.indexOf(strAfterScheme), 1);
                     }
@@ -213,7 +221,7 @@ function extractURL(str) {
         }
     }
 
-    return urls
+    return urls;
 }
 
 function getUrlRegex(schemeRegexStr) {
@@ -228,7 +236,7 @@ function getUrlRegex(schemeRegexStr) {
         return regex;
     }
 
-    regexStr = "\\w\\.\\-/\\?\\%&\\$!#\\*\\(\\)@~=\\+:;,'"
+    regexStr = "\\w\\.\\-/\\?\\%&\\$!#\\*\\(\\)@~=\\+:;,'";
     if (option.addRegexes.length > 0) {
         for (const addRegex of option.addRegexes) {
             if (addRegex == "regex-unicode-rough-range") {
@@ -316,32 +324,44 @@ async function getImgSearchUrlUsingImgUrl(url) {
     body.contentType = false;
     switch (option.imgSearchService) {
         case "google":
-            searchUrl = "https://www.google.com/searchbyimage?sbisrc=clipboard_content_opener&image_url=";
+            searchUrl =
+                "https://www.google.com/searchbyimage?sbisrc=chrome&image_url=";
             searchUrl += encodeURIComponent(url);
             break;
         case "ascii2d":
             body.append("utf8", "✓");
-            const token = "826Ypvlh4ww7awwTrMdIHeOMPA1YYjGSyKK34/qP2cPsyNMs3IqGTh8a2tWx+2oaMy9nYYx/oLg7dSmVh29Mbg=="
+            const token =
+                "826Ypvlh4ww7awwTrMdIHeOMPA1YYjGSyKK34/qP2cPsyNMs3IqGTh8a2tWx+2oaMy9nYYx/oLg7dSmVh29Mbg==";
             body.append("authenticity_token", token);
-            body.append("uri", url)
+            body.append("uri", url);
             serviceUrl = "https://ascii2d.net/search/uri";
-            await axios.post(serviceUrl, body).then(response => {
-                searchUrl = response.request.responseURL;
-                if (searchUrl.indexOf("https://ascii2d.net/search/color/") == -1) {
-                    searchUrl = url;
-                }
-            }).catch(e => {
-                //console.log(e.toJSON());
-            });
+            await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    searchUrl = response.request.responseURL;
+                    if (
+                        searchUrl.indexOf(
+                            "https://ascii2d.net/search/color/"
+                        ) == -1
+                    ) {
+                        searchUrl = url;
+                    }
+                })
+                .catch((e) => {
+                    //console.log(e.toJSON());
+                });
             break;
         case "tineye":
             body.append("url", url);
             serviceUrl = "https://tineye.com/result_json/";
-            let response = await axios.post(serviceUrl, body).then(response => {
-                return response.data;
-            }).catch(e => {
-                // console.log(e.toJSON());
-            });
+            let response = await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((e) => {
+                    // console.log(e.toJSON());
+                });
             if (response && response.query_hash) {
                 searchUrl = "https://tineye.com/search/" + response.query_hash;
             }
@@ -358,20 +378,32 @@ async function getImgSearchUrlUsingImgUrl(url) {
 function openPage(urls) {
     console.log(urls);
     //return;
-    chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
         //console.log(tabs[0]);
         urls.forEach(function (url, i) {
-            if (i == 0 && tabs[0].url.indexOf("://newtab/") != -1 && option.checkNewTab) {
+            if (
+                i == 0 &&
+                tabs[0].url.indexOf("://newtab/") != -1 &&
+                option.checkNewTab
+            ) {
                 // 1つ目のURLかつ現在のタブが新しいタブの場合
                 chrome.tabs.update({ url: url });
             } else if (i == 0 && tabOption == "current") {
                 // 1つ目のURLかつタブの設定が現在のタブの場合
                 chrome.tabs.update({ url: url });
-            } else if (i == 0 && tabOption == "foreground" && option.openFirstPageForeground) {
+            } else if (
+                i == 0 &&
+                tabOption == "foreground" &&
+                option.openFirstPageForeground
+            ) {
                 // 最初に開くタブがアクティブ
                 chrome.tabs.create({ url: url, active: true });
             } else {
-                if (i == urls.length - 1 && tabOption == "foreground" && !option.openFirstPageForeground) {
+                if (
+                    i == urls.length - 1 &&
+                    tabOption == "foreground" &&
+                    !option.openFirstPageForeground
+                ) {
                     // 最後に開くタブがアクティブ
                     chrome.tabs.create({ url: url, active: true });
                 } else {

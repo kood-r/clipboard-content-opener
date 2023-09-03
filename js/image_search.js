@@ -5,7 +5,7 @@ let imageFiles = []; // クリップボードから取得した画像
 let imageSearchUrls = []; // 検索結果のURL
 
 window.onload = function () {
-    chrome.storage.local.get({ "option": getDefautOption() }, function (obj) {
+    chrome.storage.local.get({ option: getDefautOption() }, function (obj) {
         option = obj.option;
         console.log(option);
         var element = document.querySelector("[contenteditable]");
@@ -13,7 +13,7 @@ window.onload = function () {
         element.focus();
         document.execCommand("paste");
     });
-}
+};
 
 // ペースト時、画像を取得
 function paste(e) {
@@ -21,7 +21,7 @@ function paste(e) {
     for (var i = 0; i < items.length; i++) {
         let item = items[i];
         if (item.type.indexOf("image/") > -1) {
-            imageFiles.push(items[i].getAsFile())
+            imageFiles.push(items[i].getAsFile());
         }
     }
     if (imageFiles.length > 0) {
@@ -29,7 +29,7 @@ function paste(e) {
             // img要素がDOMに反映されるのを待ってフォーカスを外す
             $("#target").blur();
             $("#target").hide();
-        })
+        });
         setCanvas();
     }
 }
@@ -43,7 +43,9 @@ async function setCanvas() {
     } else {
         $("#content").append("<table>");
         $("table").append("<tr>");
-        $("tr").append("<th id='th-image'>Image</th><th id='th-url-mes'>URL / Message</th>")
+        $("tr").append(
+            "<th id='th-image'>Image</th><th id='th-url-mes'>URL / Message</th>"
+        );
         for (const imageFile of imageFiles) {
             $("table").append("<tr>");
             const canvas = await createCanvas(imageFile, 100);
@@ -84,20 +86,20 @@ async function imageSearch() {
                 html = getMessage("uploadingImgToGoogle");
                 break;
             case "ascii2d":
-                html = getMessage("uploadingImgToAscii2d")
+                html = getMessage("uploadingImgToAscii2d");
                 break;
             case "tineye":
-                html = getMessage("uploadingImgToTinEye")
+                html = getMessage("uploadingImgToTinEye");
                 break;
             case "yandex":
-                html = getMessage("uploadingImgToYandex")
+                html = getMessage("uploadingImgToYandex");
                 break;
         }
         html = "<span>" + html + "<br>" + pleaseWait + "</span>";
         if ($("table").length == 0) {
             $("#content").prepend(html);
         } else {
-            td.append(html)
+            td.append(html);
         }
 
         // アップロードして検索結果のURLを取得
@@ -109,7 +111,10 @@ async function imageSearch() {
             imageSearchUrls.push(obj["url"]);
             if ($("table").length) {
                 td.empty();
-                const link = "<a href='" + obj["url"] + "' target='_blank'>Result Link</a>"
+                const link =
+                    "<a href='" +
+                    obj["url"] +
+                    "' target='_blank'>Result Link</a>";
                 td.append(link);
             }
         }
@@ -118,7 +123,7 @@ async function imageSearch() {
         if (obj["error"] || obj["errorMes"]) {
             td.empty();
             let error = "";
-            let errorMes = ""
+            let errorMes = "";
             let notice = "";
             if (obj["error"]) error = obj["error"];
             if (obj["errorMes"]) errorMes = obj["errorMes"];
@@ -126,7 +131,7 @@ async function imageSearch() {
             html = errorMes + "<br>" + error + "<br>" + notice;
             html = "<span>" + html + "</span>";
             if ($("table").length) {
-                td.append(html)
+                td.append(html);
             } else {
                 $("#content span").remove();
                 $("#content").prepend(html);
@@ -145,7 +150,9 @@ async function imageSearch() {
                 openPage("current");
             } else {
                 // テーブルかつエラーが1つでも存在する場合はバックグラウンドタブでURLを開く
-                let html = getMessage("openBackgroundTab_afterImgSearchFinished");
+                let html = getMessage(
+                    "openBackgroundTab_afterImgSearchFinished"
+                );
                 html = "<span>" + html + "</span>";
                 $("#content").prepend(html);
                 openPage("background");
@@ -176,48 +183,57 @@ async function uploadImage(imageFile) {
         case "google":
             serviceUrl = "https://www.google.com/searchbyimage/upload";
             body.append("encoded_image", imageFile, fileName);
-            body.append('image_url', '');
-            body.append('sbisrc', "clipboard_content_opener");
-            await axios.post(serviceUrl, body).then(response => {
-                obj["url"] = response.request.responseURL;
-            }).catch(e => {
-                console.log(e.toJSON());
-                if (e.message) {
-                    obj["error"] = e.message;
-                }
-                obj["errorMes"] = getMessage("errorOnUploadToGoogle");
-                console.log();
-            });
+            body.append("image_url", "");
+            body.append("sbisrc", "chrome");
+            await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    obj["url"] = response.request.responseURL;
+                })
+                .catch((e) => {
+                    console.log(e.toJSON());
+                    if (e.message) {
+                        obj["error"] = e.message;
+                    }
+                    obj["errorMes"] = getMessage("errorOnUploadToGoogle");
+                    console.log();
+                });
             break;
         case "ascii2d":
             serviceUrl = "https://ascii2d.net/search/file";
             body.append("file", imageFile, fileName);
-            await axios.post(serviceUrl, body).then(response => {
-                obj["url"] = response.request.responseURL;
-            }).catch(e => {
-                console.log(e.toJSON());
-                if (e.message) {
-                    obj["error"] = e.message;
-                }
-                obj["errorMes"] = getMessage("errorOnUploadToAscii2d");
-            });
+            await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    obj["url"] = response.request.responseURL;
+                })
+                .catch((e) => {
+                    console.log(e.toJSON());
+                    if (e.message) {
+                        obj["error"] = e.message;
+                    }
+                    obj["errorMes"] = getMessage("errorOnUploadToAscii2d");
+                });
             break;
         case "tineye":
             serviceUrl = "https://tineye.com/result_json/";
             body.append("image", imageFile, fileName);
-            response = await axios.post(serviceUrl, body).then(response => {
-                return response.data;
-            }).catch(e => {
-                console.log(e.toJSON());
-                if (e.response.data) {
-                    return e.response.data;
-                } else {
-                    if (e.message) {
-                        obj["error"] = e.message;
+            response = await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((e) => {
+                    console.log(e.toJSON());
+                    if (e.response.data) {
+                        return e.response.data;
+                    } else {
+                        if (e.message) {
+                            obj["error"] = e.message;
+                        }
+                        obj["errorMes"] = getMessage("errorOnUploadToTinEye");
                     }
-                    obj["errorMes"] = getMessage("errorOnUploadToTinEye");
-                }
-            });
+                });
             if (obj["error"]) {
                 break;
             }
@@ -227,7 +243,7 @@ async function uploadImage(imageFile) {
             } else {
                 try {
                     obj["error"] = response.suggestions.description[0];
-                } catch (e) { }
+                } catch (e) {}
                 obj["errorMes"] = getMessage("errorOnUploadToTinEye");
             }
             break;
@@ -246,23 +262,30 @@ async function uploadImage(imageFile) {
                     png = png.replace(/^.*,/, "");
                     imageFile = await convertImage(png);
                     converted = true;
-                } catch (e) { }
+                } catch (e) {}
             }
             body.append("upfile", imageFile, fileName);
-            serviceUrl = 'https://yandex.com/images/touch/search?rpt=imageview&format=json&request={"blocks":[{"block":"cbir-uploader__get-cbir-id"}]}';
-            response = await axios.post(serviceUrl, body).then(response => {
-                return response.data;
-            }).catch(e => {
-                console.log(e.toJSON());
-                if (e.message) {
-                    obj["error"] = e.message;
-                }
-                obj["errorMes"] = getMessage("errorOnUploadToYandex");
-                obj["notice"] = getMessage("notice_Yandex1");
-                if ($("table").length == 0 && !converted) {
-                    obj["notice"] = obj["notice"] + "<br>" + getMessage("notice_Yandex2");
-                }
-            });
+            serviceUrl =
+                'https://yandex.com/images/touch/search?rpt=imageview&format=json&request={"blocks":[{"block":"cbir-uploader__get-cbir-id"}]}';
+            response = await axios
+                .post(serviceUrl, body)
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((e) => {
+                    console.log(e.toJSON());
+                    if (e.message) {
+                        obj["error"] = e.message;
+                    }
+                    obj["errorMes"] = getMessage("errorOnUploadToYandex");
+                    obj["notice"] = getMessage("notice_Yandex1");
+                    if ($("table").length == 0 && !converted) {
+                        obj["notice"] =
+                            obj["notice"] +
+                            "<br>" +
+                            getMessage("notice_Yandex2");
+                    }
+                });
             if (obj["error"]) {
                 break;
             }
@@ -271,13 +294,18 @@ async function uploadImage(imageFile) {
                 try {
                     const origUrl = response.blocks[0].params.originalImageUrl;
                     const encodedUrl = encodeURIComponent(origUrl);
-                    obj["url"] = "https://yandex.com/images/search?rpt=imageview&url=" + encodedUrl;
+                    obj["url"] =
+                        "https://yandex.com/images/search?rpt=imageview&url=" +
+                        encodedUrl;
                 } catch (e) {
                     console.log(e);
                     obj["error"] = e;
                     if (response.captcha && response.captcha["captcha-page"]) {
                         const captchaUrl = response.captcha["captcha-page"];
-                        const captchaLink = "(<a href='" + captchaUrl + "' target='_blank'>CAPTCHA</a>)";
+                        const captchaLink =
+                            "(<a href='" +
+                            captchaUrl +
+                            "' target='_blank'>CAPTCHA</a>)";
                         obj["error"] = obj["error"] + "<br>" + captchaLink;
                     }
                     obj["errorMes"] = getMessage("errorOnUploadToYandex");
@@ -303,12 +331,16 @@ async function convertImage(png) {
 // URLを開く
 function openPage(tabOption) {
     //return;
-    chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
         imageSearchUrls.forEach(function (url, i) {
             if (i == 0 && tabOption == "current") {
                 chrome.tabs.update({ url: url });
             } else {
-                if (i == imageSearchUrls.length - 1 && tabOption == "current" && !option.openFirstPageForeground) {
+                if (
+                    i == imageSearchUrls.length - 1 &&
+                    tabOption == "current" &&
+                    !option.openFirstPageForeground
+                ) {
                     chrome.tabs.create({ url: url, active: true });
                 } else {
                     chrome.tabs.create({ url: url, active: false });
