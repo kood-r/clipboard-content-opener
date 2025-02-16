@@ -1,183 +1,248 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Option - Clipboard Content Opener</title>
     <script src="js/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="css/option.css">
-</head>
+    <link rel="stylesheet" href="css/option.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1 id="title">Option - Clipboard Content Opener</h1>
+      <h1 id="title">Option - Clipboard Content Opener</h1>
     </header>
 
     <div class="button-wrapper">
-        <button class="save-button">
-            <span data-i18n="optionSave"></span>
-        </button>
-        <button class="reset-button">
-            <span data-i18n="optionReset"></span>
-        </button>
+      <button class="save-button">
+        <span data-i18n="optionSave"></span>
+      </button>
+      <button class="reset-button">
+        <span data-i18n="optionReset"></span>
+      </button>
     </div>
 
     <div id="open-url-wrapper" class="wrapper">
-        <input type="checkbox" id="open-url" name="open-url" checked>
-        <label for="open-url">
-            <span data-i18n="optionClipboardIsUrl"></span>
+      <input type="checkbox" id="open-url" name="open-url" checked />
+      <label for="open-url">
+        <span data-i18n="optionClipboardIsUrl"></span>
+      </label>
+      <div id="open-url-inner" class="inner">
+        <ul>
+          <li class="page-open-tab-wrapper">
+            <span data-i18n="howToOpenaPage"></span>
+            <select class="page-open-tab">
+              <option value="current" data-i18n="currentTab"></option>
+              <option
+                value="foreground"
+                data-i18n="newForegroundTab"
+                selected
+              ></option>
+              <option value="background" data-i18n="newBackgroundTab"></option>
+            </select>
+          </li>
+        </ul>
+        <input type="checkbox" id="ttp-url" name="ttp-url" checked />
+        <label for="ttp-url">
+          <span data-i18n="optionUrlWithoutH"></span>
         </label>
-        <div id="open-url-inner" class="inner">
-            <ul>
-                <li class="page-open-tab-wrapper">
-                    <span data-i18n="howToOpenaPage"></span>
-                    <select class="page-open-tab">
-                        <option value="current" data-i18n="currentTab"></option>
-                        <option value="foreground" data-i18n="newForegroundTab" selected>
-                        </option>
-                        <option value="background" data-i18n="newBackgroundTab">
-                        </option>
-                    </select>
-                </li>
-            </ul>
-            <input type="checkbox" id="ttp-url" name="ttp-url" checked>
-            <label for="ttp-url">
-                <span data-i18n="optionUrlWithoutH"></span>
+        <br />
+        <input
+          type="checkbox"
+          id="extension-url"
+          name="extension-url"
+          checked
+        />
+        <label for="extension-url">
+          <span data-i18n="optionExtensionScheme"></span>
+        </label>
+        <br />
+        <input type="checkbox" id="file-url" name="file-url" checked />
+        <label for="file-url">
+          <span data-i18n="optionFileScheme"></span>
+        </label>
+        <br />
+        <input type="checkbox" id="any-schemes" name="any-schemes" checked />
+        <label for="any-schemes">
+          <span data-i18n="optionAnyScheme"></span>
+        </label>
+        <br />
+        <textarea id="schemes"></textarea>
+        <span class="desc" data-i18n="optionAnySchemeDesc"></span>
+        <input type="checkbox" id="img-url-search" name="img-url-search" />
+        <label for="img-url-search">
+          <span data-i18n="optionImgUrlSearch"></span>
+        </label>
+        <span class="desc" data-i18n="optionImgUrlSearchDesc"></span>
+        <ul>
+          <li id="add-regex-inner">
+            <span data-i18n="optionAddRegexes"></span>
+            <br />
+            <input
+              type="checkbox"
+              id="regex-unicode-rough-range"
+              name="regex-unicode-rough-range"
+            />
+            <label for="regex-unicode-rough-range">
+              <span data-i18n="optionRegexRoughRange"></span>
             </label>
-            <br>
-            <input type="checkbox" id="extension-url" name="extension-url" checked>
-            <label for="extension-url">
-                <span data-i18n="optionExtensionScheme"></span>
-            </label>
-            <br>
-            <input type="checkbox" id="file-url" name="file-url" checked>
-            <label for="file-url">
-                <span data-i18n="optionFileScheme"></span>
-            </label>
-            <br>
-            <input type="checkbox" id="any-schemes" name="any-schemes" checked>
-            <label for="any-schemes">
-                <span data-i18n="optionAnyScheme"></span>
-            </label>
-            <br>
-            <textarea id="schemes"></textarea>
-            <span class="desc" data-i18n="optionAnySchemeDesc"></span>
-            <input type="checkbox" id="img-url-search" name="img-url-search">
-            <label for="img-url-search">
-                <span data-i18n="optionImgUrlSearch"></span>
-            </label>
-            <span class="desc" data-i18n="optionImgUrlSearchDesc"></span>
-            <ul>
-                <li id="add-regex-inner">
-                    <span data-i18n="optionAddRegexes"></span>
-                    <br>
-                    <input type="checkbox" id="regex-unicode-rough-range" name="regex-unicode-rough-range">
-                    <label for="regex-unicode-rough-range">
-                        <span data-i18n="optionRegexRoughRange"></span>
-                    </label>
-                </li>
-            </ul>
-            <input type="checkbox" id="user-regex-checkbox" name="user-regex-checkbox">
-            <label for="user-regex-checkbox">
-                <span data-i18n="optionUserRegex"></span>
-            </label>
-            <br>
-            <input type="text" id="user-regex-text" value="[\w\.\-/\?\%&\$!#\*\(\)@~=\+:;,']+" disabled>
-            <span class="desc" data-i18n="optionUserRegexDesc"></span>
-        </div>
+          </li>
+        </ul>
+        <input
+          type="checkbox"
+          id="user-regex-checkbox"
+          name="user-regex-checkbox"
+        />
+        <label for="user-regex-checkbox">
+          <span data-i18n="optionUserRegex"></span>
+        </label>
+        <br />
+        <input
+          type="text"
+          id="user-regex-text"
+          value="[\w\.\-/\?\%&\$!#\*\(\)@~=\+:;,']+"
+          disabled
+        />
+        <span class="desc" data-i18n="optionUserRegexDesc"></span>
+      </div>
     </div>
 
     <div id="str-search-wrapper" class="wrapper">
-        <input type="checkbox" id="str-search" name="str-search" checked>
-        <label for="str-search">
-            <span data-i18n="optionClipboardIsStr"></span>
+      <input type="checkbox" id="str-search" name="str-search" checked />
+      <label for="str-search">
+        <span data-i18n="optionClipboardIsStr"></span>
+      </label>
+      <div id="str-search-inner" class="inner">
+        <ul>
+          <span class="replace_page-open-tab-wrapper"></span>
+          <li>
+            <span data-i18n="optionSearchEngine"></span>
+            <br />
+            <input
+              type="text"
+              id="search-service"
+              placeholder="https://www.google.com/search?q=%s"
+              value="https://www.google.com/search?q=%s"
+            />
+            <br />
+            <span data-i18n="optionSearchEngineDesc"></span>
+          </li>
+        </ul>
+        <input
+          type="checkbox"
+          id="url-as-keyword"
+          name="url-as-keyword"
+          checked
+        />
+        <label for="url-as-keyword">
+          <span data-i18n="optionUrlAsKeyword_ctrl"></span>
         </label>
-        <div id="str-search-inner" class="inner">
-            <ul>
-                <span class="replace_page-open-tab-wrapper"></span>
-                <li>
-                    <span data-i18n="optionSearchEngine"></span>
-                    <br>
-                    <input type="text" id="search-service" placeholder="https://www.google.com/search?q=%s"
-                        value="https://www.google.com/search?q=%s">
-                    <br>
-                    <span data-i18n="optionSearchEngineDesc"></span>
-                </li>
-            </ul>
-            <input type="checkbox" id="url-as-keyword" name="url-as-keyword" checked>
-            <label for="url-as-keyword">
-                <span data-i18n="optionUrlAsKeyword_ctrl"></span>
-            </label>
-            <br>
-            <input type="checkbox" id="parse-line-by-line-shift" name="parse-line-by-line-shift" checked>
-            <label for="parse-line-by-line-shift">
-                <span data-i18n="optionParseLineByLine_shift"></span>
-            </label>
-            <br>
-            <input type="checkbox" id="exact-match" name="exact-match" checked>
-            <label for="exact-match">
-                <span data-i18n="optionExactMatch_z"></span>
-            </label>
-        </div>
+        <br />
+        <input
+          type="checkbox"
+          id="parse-line-by-line-shift"
+          name="parse-line-by-line-shift"
+          checked
+        />
+        <label for="parse-line-by-line-shift">
+          <span data-i18n="optionParseLineByLine_shift"></span>
+        </label>
+        <br />
+        <input type="checkbox" id="exact-match" name="exact-match" checked />
+        <label for="exact-match">
+          <span data-i18n="optionExactMatch_z"></span>
+        </label>
+      </div>
     </div>
 
     <div id="img-search-wrapper" class="wrapper">
-        <input type="checkbox" id="img-search" name="img-search" checked>
-        <label for="img-search">
-            <span data-i18n="optionClipboardIsImage"></span>
+      <input type="checkbox" id="img-search" name="img-search" checked />
+      <label for="img-search">
+        <span data-i18n="optionClipboardIsImage"></span>
+      </label>
+      <div id="img-search-inner" class="inner">
+        <ul>
+          <li>
+            <span data-i18n="optionImageSearchEngine"></span>
+            <select id="img-search-service">
+              <option
+                value="google"
+                data-i18n="optionGoogleLensImageSearch"
+              ></option>
+              <option
+                value="ascii2d"
+                data-i18n="optionAscii2dImageSearch"
+              ></option>
+              <option
+                value="tineye"
+                data-i18n="optionTinEyeImageSearch"
+              ></option>
+              <option
+                value="yandex"
+                data-i18n="optionYandexImageSearch"
+              ></option>
+            </select>
+          </li>
+        </ul>
+        <input
+          type="checkbox"
+          class="for-yandex"
+          id="img-convert-for-yandex"
+          name="img-convert-for-yandex"
+          checked
+        />
+        <label class="for-yandex" for="img-convert-for-yandex">
+          <span data-i18n="optionImageConvertForYandex"></span>
         </label>
-        <div id="img-search-inner" class="inner">
-            <ul>
-                <li>
-                    <span data-i18n="optionImageSearchEngine"></span>
-                    <select id="img-search-service">
-                        <option value="google" data-i18n="optionGoogleImageSearch"></option>
-                        <option value="ascii2d" data-i18n="optionAscii2dImageSearch"></option>
-                        <option value="tineye" data-i18n="optionTinEyeImageSearch"></option>
-                        <option value="yandex" data-i18n="optionYandexImageSearch"></option>
-                    </select>
-                </li>
-            </ul>
-            <input type="checkbox" class="for-yandex" id="img-convert-for-yandex" name="img-convert-for-yandex" checked>
-            <label class="for-yandex" for="img-convert-for-yandex">
-                <span data-i18n="optionImageConvertForYandex"></span>
-            </label>
-            <span class="desc for-yandex" data-i18n="optionImageConvertForYandexDesc"></span>
-        </div>
+        <span
+          class="desc for-yandex"
+          data-i18n="optionImageConvertForYandexDesc"
+        ></span>
+      </div>
     </div>
 
     <div id="other-option-wrapper" class="wrapper">
-        <input type="checkbox" id="check-newtab" name="check-newtab" checked>
-        <label for="check-newtab">
-            <span data-i18n="optionCurrentTabIsNewTab"></span>
-        </label>
-        <br>
-        <input type="checkbox" id="open-first-page-foreground" name="open-first-page-foreground" checked>
-        <label for="open-first-page-foreground">
-            <span data-i18n="optionOpenFirstPageForeground"></span>
-        </label>
-        <span class="desc" data-i18n="optionOpenFirstPageForegroundDesc"></span>
-        <input type="checkbox" id="parse-line-by-line-shift-alt" name="parse-line-by-line-shift-alt" checked>
-        <label for="parse-line-by-line-shift-alt">
-            <span data-i18n="optionParseLineByLine_shiftAlt"></span>
-        </label>
-        <span class="desc" data-i18n="optionParseLineByLine_shiftAltDesc"></span>
-        <ul>
-            <li>
-                <span data-i18n="optionWaitingTime"></span>
-                <input type="text" id="waiting-time" value="100">
-                <span data-i18n="optionMillisecond"></span>
-            </li>
-            <span class="desc" data-i18n="optionWaitingTimeDesc"></span>
-        </ul>
+      <input type="checkbox" id="check-newtab" name="check-newtab" checked />
+      <label for="check-newtab">
+        <span data-i18n="optionCurrentTabIsNewTab"></span>
+      </label>
+      <br />
+      <input
+        type="checkbox"
+        id="open-first-page-foreground"
+        name="open-first-page-foreground"
+        checked
+      />
+      <label for="open-first-page-foreground">
+        <span data-i18n="optionOpenFirstPageForeground"></span>
+      </label>
+      <span class="desc" data-i18n="optionOpenFirstPageForegroundDesc"></span>
+      <input
+        type="checkbox"
+        id="parse-line-by-line-shift-alt"
+        name="parse-line-by-line-shift-alt"
+        checked
+      />
+      <label for="parse-line-by-line-shift-alt">
+        <span data-i18n="optionParseLineByLine_shiftAlt"></span>
+      </label>
+      <span class="desc" data-i18n="optionParseLineByLine_shiftAltDesc"></span>
+      <ul>
+        <li>
+          <span data-i18n="optionWaitingTime"></span>
+          <input type="text" id="waiting-time" value="100" />
+          <span data-i18n="optionMillisecond"></span>
+        </li>
+        <span class="desc" data-i18n="optionWaitingTimeDesc"></span>
+      </ul>
     </div>
 
     <footer>
-        <a href="http://kood.info/" target="_blank">kood.info</a> |
-        <a href="https://twitter.com/kood_infothief" target="_blank">@kood_infothief</a>
+      <a href="http://kood.info/" target="_blank">kood.info</a> |
+      <a href="https://twitter.com/kood_infothief" target="_blank"
+        >@kood_infothief</a
+      >
     </footer>
 
     <script src="js/option.js" type="module"></script>
-</body>
-
+  </body>
 </html>
