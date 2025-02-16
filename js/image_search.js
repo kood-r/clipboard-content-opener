@@ -354,23 +354,26 @@ async function convertImage(png) {
 // URLを開く
 function openPage(tabOption) {
   //return;
-  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    imageSearchUrls.forEach(function (url, i) {
-      if (i == 0 && tabOption == "current") {
-        chrome.tabs.update({ url: url });
-      } else {
-        if (
-          i == imageSearchUrls.length - 1 &&
-          tabOption == "current" &&
-          !option.openFirstPageForeground
-        ) {
-          chrome.tabs.create({ url: url, active: true });
+  chrome.tabs.query(
+    { url: chrome.runtime.getURL("image_search.html") },
+    (tabs) => {
+      imageSearchUrls.forEach(function (url, i) {
+        if (i == 0 && tabOption == "current") {
+          chrome.tabs.update(tabs[0].id, { url: url });
         } else {
-          chrome.tabs.create({ url: url, active: false });
+          if (
+            i == imageSearchUrls.length - 1 &&
+            tabOption == "current" &&
+            !option.openFirstPageForeground
+          ) {
+            chrome.tabs.create({ url: url, active: true });
+          } else {
+            chrome.tabs.create({ url: url, active: false });
+          }
         }
-      }
-    });
-  });
+      });
+    }
+  );
 }
 
 function getMessage(key) {
