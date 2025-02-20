@@ -288,7 +288,15 @@ async function uploadImage(imageFile) {
   return obj;
 }
 
-function searchUsingGoogleLens() {
+async function searchUsingGoogleLens() {
+  const tabs = await chrome.tabs.query({
+    url: "https://images.google.com/?imgidx=*",
+  });
+  const tabIds = tabs.map((t) => t.id);
+  if (tabIds.length) {
+    await chrome.tabs.remove(tabIds);
+  }
+
   const urls = [];
   const finishedStatuses = [];
   for (let i = 0; i < imageFiles.length; i++) {
