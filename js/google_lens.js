@@ -9,14 +9,11 @@ function base64ToBlob(base64, type) {
 
 function inputImg(imgFile) {
   new MutationObserver((_, observer) => {
-    const imgSearchIcon = document.querySelector("[data-base-lens-url]");
-    if (!imgSearchIcon) return;
-    imgSearchIcon.click();
-
     const input = document.querySelector("input[type='file']");
-    if (!input) return;
+    if (!input) {
+      return;
+    }
     observer.disconnect();
-
     const dt = new DataTransfer();
     dt.items.add(imgFile);
     input.files = dt.files;
@@ -25,6 +22,18 @@ function inputImg(imgFile) {
     childList: true,
     subtree: true,
   });
+
+  (() => {
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      const imgSearchIcon = document.querySelector("[data-base-lens-url]");
+      if (count === 100 || imgSearchIcon) {
+        clearInterval(interval);
+        imgSearchIcon.click();
+      }
+    }, 100);
+  })();
 }
 
 function main() {
