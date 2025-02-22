@@ -343,7 +343,7 @@ async function getImgSearchUrlUsingImgUrl(url) {
       break;
     case "tineye":
       body.append("url", url);
-      serviceUrl = "https://tineye.com/result_json/";
+      serviceUrl = "https://www.tineye.com/api/v1/result_json/";
       let response = await axios
         .post(serviceUrl, body)
         .then((response) => {

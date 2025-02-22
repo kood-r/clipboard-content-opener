@@ -193,7 +193,7 @@ async function uploadImage(imageFile) {
         });
       break;
     case "tineye":
-      serviceUrl = "https://tineye.com/result_json/";
+      serviceUrl = "https://www.tineye.com/api/v1/result_json/";
       body.append("image", imageFile, fileName);
       response = await axios
         .post(serviceUrl, body)
