@@ -83,6 +83,9 @@
   "optionImageSearchEngine": {
     "message": "画像検索エンジン"
   },
+  "optionGoogleImageSearch": {
+    "message": "Google画像検索"
+  },
   "optionGoogleLensImageSearch": {
     "message": "Googleレンズ"
   },
@@ -127,6 +130,12 @@
   },
   "pleaseWait": {
     "message": "しばらくお待ち下さい。"
+  },
+  "uploadingImgToGoogle": {
+    "message": "クリップボードの画像をGoogle画像検索にアップロード中です。"
+  },
+  "errorOnUploadToGoogle": {
+    "message": "Google画像検索へのアップロードでエラーが発生しました。"
   },
   "uploadingImgToAscii2d": {
     "message": "クリップボードの画像を二次元画像詳細検索にアップロード中です。"

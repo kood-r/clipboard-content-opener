@@ -294,6 +294,7 @@ function setMessage() {
     // 画像検索
     "optionClipboardIsImage",
     "optionImageSearchEngine",
+    "optionGoogleImageSearch",
     "optionGoogleLensImageSearch",
     "optionAscii2dImageSearch",
     "optionTinEyeImageSearch",

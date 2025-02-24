@@ -29,7 +29,7 @@ function paste(e) {
       $("#target").blur();
       $("#target").hide();
     });
-    if (option.imgSearchService === "google") {
+    if (option.imgSearchService === "googleLens") {
       searchUsingGoogleLens();
     } else {
       setCanvas();
@@ -85,6 +85,9 @@ async function imageSearch() {
     let html = "";
     const td = $($($("tr")[i + 1]).find("td")[1]);
     switch (option.imgSearchService) {
+      case "google":
+        html = getMessage("uploadingImgToGoogle");
+        break;
       case "ascii2d":
         html = getMessage("uploadingImgToAscii2d");
         break;
@@ -176,6 +179,25 @@ async function uploadImage(imageFile) {
 
   // アップロードして検索結果のURLを取得
   switch (option.imgSearchService) {
+    case "google":
+      serviceUrl = "https://www.google.com/searchbyimage/upload";
+      body.append("encoded_image", imageFile, fileName);
+      body.append("image_url", "");
+      body.append("sbisrc", "chrome");
+      await axios
+        .post(serviceUrl, body)
+        .then((response) => {
+          obj["url"] = response.request.responseURL;
+        })
+        .catch((e) => {
+          console.log(e.toJSON());
+          if (e.message) {
+            obj["error"] = e.message;
+          }
+          obj["errorMes"] = getMessage("errorOnUploadToGoogle");
+          console.log();
+        });
+      break;
     case "ascii2d":
       serviceUrl = "https://ascii2d.net/search/file";
       body.append("file", imageFile, fileName);

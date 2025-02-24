@@ -9,6 +9,7 @@
   "options_page": "option.html",
   "permissions": ["tabs", "clipboardRead", "storage"],
   "host_permissions": [
+    "https://www.google.com/searchbyimage/upload",
     "https://images.google.com/?imgidx=*",
     "https://ascii2d.net/search/file",
     "https://*.tineye.com/*",
