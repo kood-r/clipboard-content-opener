@@ -262,57 +262,10 @@ $("input[type='checkbox']").on("change", function (e) {
 
 // messages.jsonの内容を反映
 function setMessage() {
-  const i18nKeys = [
-    // 保存, リセットボタン
-    "optionSave",
-    "optionReset",
-    // ページの開き方
-    "howToOpenaPage",
-    "currentTab",
-    "newForegroundTab",
-    "newBackgroundTab",
-    // URL
-    "optionClipboardIsUrl",
-    "optionUrlWithoutH",
-    "optionExtensionScheme",
-    "optionFileScheme",
-    "optionAnyScheme",
-    "optionAnySchemeDesc",
-    "optionImgUrlSearch",
-    "optionImgUrlSearchDesc",
-    "optionAddRegexes",
-    "optionRegexRoughRange",
-    "optionUserRegex",
-    "optionUserRegexDesc",
-    // 検索
-    "optionClipboardIsStr",
-    "optionSearchEngine",
-    "optionSearchEngineDesc",
-    "optionUrlAsKeyword_ctrl",
-    "optionParseLineByLine_shift",
-    "optionExactMatch_z",
-    // 画像検索
-    "optionClipboardIsImage",
-    "optionImageSearchEngine",
-    "optionGoogleImageSearch",
-    "optionGoogleLensImageSearch",
-    "optionAscii2dImageSearch",
-    "optionTinEyeImageSearch",
-    "optionYandexImageSearch",
-    "optionImageConvertForYandex",
-    "optionImageConvertForYandexDesc",
-    // その他
-    "optionCurrentTabIsNewTab",
-    "optionOpenFirstPageForeground",
-    "optionOpenFirstPageForegroundDesc",
-    "optionParseLineByLine_shiftAlt",
-    "optionParseLineByLine_shiftAltDesc",
-    "optionWaitingTime",
-    "optionMillisecond",
-    "optionWaitingTimeDesc",
-  ];
-  for (const key of i18nKeys) {
-    appendMessage(key);
+  const elems = document.querySelectorAll("[data-i18n]");
+  for (const elem of elems) {
+    const key = elem.dataset.i18n;
+    $(elem).append(getMessage(key));
   }
   $("body").css("visibility", "visible");
 }
@@ -328,11 +281,6 @@ function getMessage(key) {
   } else {
     return key;
   }
-}
-
-// messageを反映
-function appendMessage(key) {
-  $("[data-i18n='" + key + "']").append(getMessage(key));
 }
 
 // 一部要素を複製
